@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class HomeDao {
     private static Connection connection;
-    private static String GET_USER="SELECT * FROM users";
+    private static final String GET_USER="SELECT * FROM users";
 
     public HomeDao(){
         connection= Database.getDBConnection();
@@ -23,7 +23,7 @@ public class HomeDao {
         try{
             PreparedStatement statement=connection.prepareStatement(GET_USER);
             ResultSet rs = statement.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 user=new UserModel();
                 user.setId(rs.getInt("id"));
                 user.setName(rs.getString("name"));
@@ -32,8 +32,9 @@ public class HomeDao {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
+        System.out.println(users);
         return users;
     }
 }

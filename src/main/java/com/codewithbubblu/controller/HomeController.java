@@ -28,14 +28,18 @@ public class HomeController {
     public String index(@ModelAttribute("user") UserModel user){
         return "index";
     }
-    @RequestMapping("/home")
+
+    @RequestMapping(value = "/home",method = RequestMethod.POST)
     public String home(@ModelAttribute("user") UserModel user,HttpServletRequest httpServletRequest,Model model) throws SQLException {
         AuthDao authDao=new AuthDao();
-
-        if(authDao.validateUser(user.getEmail(),user.getPassword()).equals("index")){
+        String res=authDao.validateUser(user.getEmail(),user.getPassword());
+        if(res.equals("index")){
             httpServletRequest.setAttribute("error", true);
         }
-        return authDao.validateUser(user.getEmail(),user.getPassword());
+        ArrayList<UserModel> users;
+        users = homeDao.getUser();
+        model.addAttribute("users", users);
+        return res;
     }
     @RequestMapping(value = "/register",method = RequestMethod.GET)
     public String register(Model model){
@@ -55,8 +59,10 @@ public class HomeController {
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home(Model model) {
-        ArrayList<UserModel> users=new ArrayList<>();
+        System.out.println("home navigated");
+        ArrayList<UserModel> users;
         users = homeDao.getUser();
+        System.out.println(users);
         model.addAttribute("users", users);
         return "home";
     }

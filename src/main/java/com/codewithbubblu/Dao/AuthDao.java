@@ -24,7 +24,6 @@ public class AuthDao {
             if(email.equals(rs.getString("email")) && password.equals(rs.getString("password"))){
                 s="home";
             }
-
         }
         return s;
     }

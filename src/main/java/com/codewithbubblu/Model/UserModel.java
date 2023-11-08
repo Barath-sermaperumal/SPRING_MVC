@@ -90,7 +90,4 @@ public class UserModel {
 //    public void setLanguages(String[] languages) {
 //        this.languages = languages;
 //    }
-
-    public UserModel() {
-    }
 }
