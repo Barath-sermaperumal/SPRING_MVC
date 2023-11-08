@@ -1,6 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+<%@ page isELIgnored="false" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <html>
-<head>
- <link
+  <head>
+    <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
@@ -25,7 +30,7 @@
     </style>
   </head>
   <body class="d-flex justify-content-center">
-    <section class="d-flex justify-content-center h-100 w-50">
+    <section class="h-100 w-50">
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
           <div class="col">
@@ -42,48 +47,46 @@
                     "
                   />
                 </div>
-                <form class="col-xl-6" method="get" action="home">
+                <form:form class="col-xl-6" action="home" modelAttribute="user">
                   <div class="card-body p-md-5 text-black">
                     <h3 class="mb-5 text-uppercase">
-                      Student Login form
+                      Welcome to Login
                     </h3>
 
-                    <div class="row">
-                      <div class="col mb-4">
-                        <div class="form-outline">
-                          <input
-                            type="email"
-                            id="uname"
-                            class="form-control form-control-lg"
-                            placeholder="Enter your email"
-                            name="uname"
-                          />
-                        </div>
-                      </div>
-                    </div>
-
                     <div class="form-outline mb-4">
-                      <input
-                        type="password"
-                        id="upassword"
+                       <form:input
+                        type="text"
+                        id="email"
+                        path="email"
                         class="form-control form-control-lg"
-                        placeholder="Enter password"
-                        name="upassword"
+                        placeholder="Enter your email"
                       />
                     </div>
 
-                      <%
-                      if(request.getAttribute("error")!=null){
-                      out.print("<p>Invalid!</p>");
-                      }
-                      %>
+                      <div class="col-md-6 mb-3">
+                        <div class="form-outline">
+                          <form:input
+                            type="password"
+                            id="form3Example1m1"
+                            path="password"
+                            class="form-control form-control-lg"
+                            placeholder="Enter password"
+                          />
+                        </div>
+                      </div>
+
+  <%
+  if(request.getAttribute("error")!=null){
+  out.print("<p>Invalid!</p>");
+  }
+  %>
 
                     <div class="d-flex justify-content-start pt-3">
-                      <a href="home"><input class="btn btn-warning" type="submit" value="login"></a>
+                      <a href="home"><input type="submit" class="btn btn-warning btn-lg ms-2" value="Login"></a>
                     </div>
-                    Already a user?<a href="register">Sign In</a>
+                    Not a user?<a href="register">Sign Up</a>
                   </div>
-                </form>
+                </form:form>
               </div>
             </div>
           </div>

@@ -56,12 +56,10 @@
              <div class="row">
                       <div class="col mb-4">
                         <div class="form-outline">
-                          <label for="name" class="form-label">Name</label>
                           <form:input
-
                             path="name"
                             class="form-control form-control-lg"
-
+                            placeholder="Enter your Name"
                           />
                         </div>
                       </div>
@@ -129,7 +127,7 @@
                         </label>
                       </div>
                       <div class="col-md-3 form-check mb-3">
-                        Tamil<form:checkbox
+                        <form:checkbox
                           value="Tamil"
                           path="languages"
                           id="Tamil"
@@ -154,7 +152,7 @@
                     <div class="row">
                       <div class="col-md-6 mb-4">
                         <form:select class="select form-control-lg form-control" path="country">
-                          <form:option value="not Selected" label="not Selected"/>
+                          <form:option value="--select country--"/>
                           <form:option value="India" label="India"/>
                           <form:option value="China" label="China"/>
                           <form:option value="USA" label="USA"/>
@@ -162,7 +160,7 @@
                       </div>
                       <div class="col-md-6 mb-4">
                         <form:select class="select form-control-lg form-control" path="state" >
-                          <form:option value="not Selected"/>
+                          <form:option value="--select state--"/>
                           <form:option value="Tamilnadu"/>
                           <form:option value="Kerala"/>
                           <form:option value="Andhra Pradesh"/>
@@ -185,7 +183,7 @@
                       <div class="col-md-6 mb-4">
                         <div class="form-outline">
                           <form:input
-                            type="text"
+                            type="password"
                             id="form3Example1n1"
                             path="c_password"
                             class="form-control form-control-lg"
@@ -198,7 +196,7 @@
                     <div class="d-flex justify-content-start pt-3">
                       <a href="home"><input type="submit" class="btn btn-warning btn-lg ms-2" value="Register"></a>
                     </div>
-                    Not a user?<a href="">Sign Up</a>
+                    Already a user?<a href="/">Sign Up</a>
                   </div>
                 </form:form>
               </div>

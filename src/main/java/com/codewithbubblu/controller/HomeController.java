@@ -1,5 +1,7 @@
 package com.codewithbubblu.controller;
 
+import com.codewithbubblu.Dao.AuthDao;
+import com.codewithbubblu.Dao.HomeDao;
 import com.codewithbubblu.Dao.RegisterDao;
 import com.codewithbubblu.Model.UserModel;
 import org.springframework.stereotype.Controller;
@@ -11,39 +13,29 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 @Controller
 public class HomeController {
 
     UserModel user;
+    HomeDao homeDao;
     public HomeController(){
         user=new UserModel();
+        homeDao=new HomeDao();
     }
-    @RequestMapping("/")
-    public String index(){
+    @RequestMapping(value = "/")
+    public String index(@ModelAttribute("user") UserModel user){
         return "index";
     }
     @RequestMapping("/home")
-    public String home(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Model model){
-        String name=httpServletRequest.getParameter("rname");
-        String email=httpServletRequest.getParameter("remail");
-        String gender=httpServletRequest.getParameter("rgender");
-        String language=httpServletRequest.getParameter("rlanguage");
-        String state=httpServletRequest.getParameter("rstate");
-        String country=httpServletRequest.getParameter("rcountry");
-        String password=httpServletRequest.getParameter("rpassword");
-        String c_password=httpServletRequest.getParameter("rc_password");
+    public String home(@ModelAttribute("user") UserModel user,HttpServletRequest httpServletRequest,Model model) throws SQLException {
+        AuthDao authDao=new AuthDao();
 
-        model.addAttribute("name",name);
-        model.addAttribute("email",email);
-        model.addAttribute("gender",gender);
-        model.addAttribute("language",language);
-        model.addAttribute("state",state);
-        model.addAttribute("country",country);
-        model.addAttribute("password",password);
-        model.addAttribute("c_password",c_password);
-
-        return "home";
+        if(authDao.validateUser(user.getEmail(),user.getPassword()).equals("index")){
+            httpServletRequest.setAttribute("error", true);
+        }
+        return authDao.validateUser(user.getEmail(),user.getPassword());
     }
     @RequestMapping(value = "/register",method = RequestMethod.GET)
     public String register(Model model){
@@ -55,10 +47,17 @@ public class HomeController {
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     public String register(@ModelAttribute("user") UserModel user) throws SQLException {
         if (user.getPassword().equals(user.getC_password())) {
-
             RegisterDao registerDao=new RegisterDao();
             registerDao.regUser(user);
         }
         return "index";
+    }
+
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    public String home(Model model) {
+        ArrayList<UserModel> users=new ArrayList<>();
+        users = homeDao.getUser();
+        model.addAttribute("users", users);
+        return "home";
     }
 }
