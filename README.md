@@ -40,11 +40,3 @@ Steps used to build this application:-
 
     👉 Used registration has been validated in model using Anotation.
 
-
-Credentials 
-
------------
-
-  ▶️ For Login use the following credentials
-
-      📧Email = "a@a.com" | 🔐Password = "a"
